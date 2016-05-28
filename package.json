@@ -1,0 +1,17 @@
+{
+  "name": "ez-compiler",
+  "version": "0.0.1",
+  "description": "An easy-to-use compiler for commonly used pre-processors.",
+  "main": "ez-compiler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ez-compile": "ez-compiler.js"
+  },
+  "author": "John Armbruster",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^0.30.0"
+  }
+}
