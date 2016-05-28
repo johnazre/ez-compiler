@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 'use strict'
 
-const FS = require('fs'); 
-const fsExtra = require('fs-extra');
-const exec = require('child_process').exec;
+const FS = require('fs'),
+	  fsExtra = require('fs-extra'),
+	  exec = require('child_process').exec,
+	  createDir = require('./lib/create/createDir'),
+	  createFiles = require('./lib/create/createFiles');
+
 
 // argv = ['node', 'ez-compiler', task]
 let task = process.argv[2];
@@ -22,6 +25,14 @@ FS.readFile('ez.complr', 'utf8', (error, data) => {
 
 	// Declare empty command string
 	let command = '';
+	
+	// Create project template
+	if(task === 'create'){
+		let projectType = process.argv[3];
+		
+		if (projectType === "default" || projectType === "") createDir.default();
+		if (projectType === "angular1" || projectType === "") createDir.angular1();
+	}
 	
 	// Compile to html/css/js using "compile" task
 	if (task === 'compile'){
@@ -68,4 +79,4 @@ FS.readFile('ez.complr', 'utf8', (error, data) => {
 		}
 	});
 	
-}); // readFile()
+}); // FS.readFile
