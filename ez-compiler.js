@@ -8,15 +8,20 @@ const exec = require('child_process').exec;
 // argv = ['node', 'ez-compiler', task]
 let task = process.argv[2];
 
-console.log(FS.readdirSync('./'))
-
 // read ez.complr
 FS.readFile('ez.complr', 'utf8', (error, data) => {
-	// console.log(arguments)
 	error ? console.log(error) : true;
-
-	let command = '';
 	
+	FS.readFile('package.json', 'utf8', (error, data) => {
+		var scripts = require('./lib/scripts');
+		var result = data.replace(scripts.originalScript, scripts.nextScript);
+		FS.writeFile('./package.json', result, (err) => {
+			err ? console.log(err) : true;
+		});
+	})
+
+	// Declare empty command string
+	let command = '';
 	
 	// Compile to html/css/js using "compile" task
 	if (task === 'compile'){
@@ -29,27 +34,16 @@ FS.readFile('ez.complr', 'utf8', (error, data) => {
 		})(task, data);
 		
 		console.log('datas: ', data);
-		const reqMods = commandParts[0].slice(9).split(',')
-		const source = commandParts[1].slice(8);
-		const destination = commandParts[2].slice(13)
+		
+		const reqMods = commandParts[0].slice(9).split(',') // Required modules to use while creating a compile command
+		const source = commandParts[1].slice(8); // Where the file is
+		const destination = commandParts[2].slice(13) // Where it's going
 		
 		let commandCreator = reqMods.forEach((val) => {
-			if (val === "babel") {
-				command = command.concat("npm run babel && ")
-			} else if (val === "coffee") {
-				command = command.concat(val + ' --out ' + destination + ' -c ' +  source + " && ")
-			} else if (val === "stylus") {
-				command = command.concat(val + ' ' + source + '/css --out ' + destination +  "/css && ")
-			} else {
-				command = command.concat(val + ' ' + source + ' -o ' + destination + " && ")
-			}
-
+			command = command.concat("npm run " + val + " && ") // Okay for now. Need to figure out better option
 		})
-		command = command.slice(0, -3);
-		// fsExtra.copy('./src', './dist', function (err) {
-		// 	if (err) return console.error(err)
-		// 	console.log("success!")
-		// })
+		command = command.slice(0, -3); // Trim the end of the last command.concat to remove "&& ".
+
 	} // end compile task
 	
 	// Wants to lint the file with Jshint

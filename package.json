@@ -12,6 +12,7 @@
   "author": "John Armbruster",
   "license": "ISC",
   "dependencies": {
-    "fs-extra": "^0.30.0"
+    "fs-extra": "^0.30.0",
+    "replacestream": "^4.0.0"
   }
 }
