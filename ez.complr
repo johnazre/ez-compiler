@@ -1,4 +1,4 @@
-modules = [node-sass, pug]
+modules = [stylus, pug]
 
 source = [./src]
 destination = [./dist]
