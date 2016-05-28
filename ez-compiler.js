@@ -60,12 +60,12 @@ FS.readFile('ez.complr', 'utf8', (error, data) => {
 
 	// What creates and executes the command
 	console.log("command: ", command);
-	
 	const child = exec(command, (error, stdout, stderr) => {
-		console.log(`stdout: ${stdout}`);
-		console.log(`stderr: ${stderr}`);
+		console.log("stdout: ", stdout);
+		console.log("stderr: ", stderr);
 		if (error !== null) {
-			console.log(`execution error: ${error}`);
+			console.log("execution error: ", error);
 		}
-	}); // exec()
+	});
+	
 }); // readFile()

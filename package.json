@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ez-compile": "ez-compiler.js"
+    "ezc": "ez-compiler.js"
   },
   "author": "John Armbruster",
   "license": "ISC",
