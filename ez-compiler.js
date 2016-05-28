@@ -7,36 +7,45 @@ const FS = require('fs'),
 	  createDir = require('./lib/create/createDir'),
 	  createFiles = require('./lib/create/createFiles');
 
+let command = '';
+
 
 // argv = ['node', 'ez-compiler', task]
 let task = process.argv[2];
 
-// read ez.complr
-FS.readFile('ez.complr', 'utf8', (error, data) => {
-	error ? console.log(error) : true;
+// Create project template
+if(task === 'create'){
+	let projectType = process.argv[3];
 	
-	FS.readFile('package.json', 'utf8', (error, data) => {
-		var scripts = require('./lib/scripts');
-		var result = data.replace(scripts.originalScript, scripts.nextScript);
-		FS.writeFile('./package.json', result, (err) => {
-			err ? console.log(err) : true;
-		});
-	})
+	if (projectType === "default") createDir.default();
+	if (projectType === "angular1") createDir.angular1();
+}
 
-	// Declare empty command string
-	let command = '';
-	
-	// Create project template
-	if(task === 'create'){
-		let projectType = process.argv[3];
+// Wants to lint the file with Jshint
+else if (task === "lint"){
+	let fileNameOrPath = process.argv[3]
+	command += ("jshint " + fileNameOrPath);
+}
+
+// Wants to lint the file with Jshint
+else if (task === "test"){
+	let fileNameOrPath = process.argv[3]
+	command += ("mocha " + fileNameOrPath);
+}
+
+else if (task === 'compile'){
+	// read ez.complr
+	FS.readFile('ez.complr', 'utf8', (error, data) => {
+		error ? console.log(error) : true;
 		
-		if (projectType === "default" || projectType === "") createDir.default();
-		if (projectType === "angular1" || projectType === "") createDir.angular1();
-	}
-	
-	// Compile to html/css/js using "compile" task
-	if (task === 'compile'){
-		
+		FS.readFile('package.json', 'utf8', (error, data) => {
+			var scripts = require('./lib/scripts');
+			var result = data.replace(scripts.originalScript, scripts.nextScript);
+			FS.writeFile('./package.json', result, (err) => {
+				err ? console.log(err) : true;
+			});
+		})
+			
 		let commandParts = (() => {
 		let bits = data.toLowerCase()
 			.replace(/\s+/g, '')
@@ -54,29 +63,17 @@ FS.readFile('ez.complr', 'utf8', (error, data) => {
 			command = command.concat("npm run " + val + " && ") // Okay for now. Need to figure out better option
 		})
 		command = command.slice(0, -3); // Trim the end of the last command.concat to remove "&& ".
+		
+		// What creates and executes the command
+		console.log("command: ", command);
+		const child = exec(command, (error, stdout, stderr) => {
+			console.log("stdout: ", stdout);
+			console.log("stderr: ", stderr);
+			if (error !== null) {
+				console.log("execution error: ", error);
+			}
+		});
+		
+	}); // readFile()
 
-	} // end compile task
-	
-	// Wants to lint the file with Jshint
-	else if (task === "lint"){
-		let fileNameOrPath = process.argv[3]
-		command += ("jshint " + fileNameOrPath);
-	}
-	
-	// Wants to lint the file with Jshint
-	else if (task === "test"){
-		let fileNameOrPath = process.argv[3]
-		command += ("mocha " + fileNameOrPath);
-	}
-
-	// What creates and executes the command
-	console.log("command: ", command);
-	const child = exec(command, (error, stdout, stderr) => {
-		console.log("stdout: ", stdout);
-		console.log("stderr: ", stderr);
-		if (error !== null) {
-			console.log("execution error: ", error);
-		}
-	});
-	
-}); // FS.readFile
+}
