@@ -60,13 +60,13 @@ else if (task === 'compile'){
 		const destination = commandParts[2].slice(13) // Where it's going
 		
 		let commandCreator = reqMods.forEach((val) => {
-			command = command.concat("npm run " + val + " && ") // Okay for now. Need to figure out better option
+			command = command.concat("\"" + val + "\" ") // Okay for now. Need to figure out better option
 		})
 		command = command.slice(0, -3); // Trim the end of the last command.concat to remove "&& ".
 		
 		// What creates and executes the command
 		console.log("command: ", command);
-		const child = exec(command, (error, stdout, stderr) => {
+		const child = exec("conurrently " + command, (error, stdout, stderr) => {
 			console.log("stdout: ", stdout);
 			console.log("stderr: ", stderr);
 			if (error !== null) {
