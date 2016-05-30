@@ -1,4 +1,0 @@
-modules = [stylus, pug]
-
-source = [./src]
-destination = [./dist]
