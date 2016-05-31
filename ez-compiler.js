@@ -4,7 +4,8 @@
 const FS = require('fs'),
 	  fsExtra = require('fs-extra'),
 	  exec = require('child_process').exec,
-	  createDir = require('./lib/createDir');
+	  createDir = require('./lib/createDir'),
+		options = process.argv;
 
 // Declare command
 let command = 'concurrently ';
@@ -49,6 +50,9 @@ else if (task === 'compile'){
 		let commandCreator = reqMods.forEach((val) => {
 			command = command.concat("\"npm run " + val + "\" ")
 		})
+
+		if (options.indexOf('compile') > -1 && options.indexOf('--babel') > -1) command = command.concat("\"npm run babel\"")
+
 
 		// What executes the command
 		console.log("command: ", command);

@@ -20,3 +20,8 @@ When you run `ezc create default` OR `ezc create angular1`, you can add flags to
 - `--less` for Less
 - `--pug` for Pug/Jade
 - `--coffee` for Coffeescript
+
+#### The flag for "compile":
+If you want to write in ES6, there is a flag for Babel! If you run it, the `.js` files that get written to the `dist` folder will all be compiled.
+
+- `--babel`
