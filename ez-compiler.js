@@ -34,6 +34,10 @@ else if (task === "test"){
 }
 
 else if (task === 'compile'){
+	
+	// Allow for node-sass and stylus to work. Will not work without. Won't create own directories.
+	FS.mkdirSync('./dist');
+	FS.mkdirSync('./dist/css');
 
 	FS.readFile('ezconfig.json', 'utf8', (error, data) => {
 		error ? console.log(error) : true;
