@@ -38,6 +38,7 @@ else if (task === 'compile'){
 	FS.readFile('ezconfig.json', 'utf8', (error, data) => {
 		error ? console.log(error) : true;
 
+		// TODO: Do a writeStream for ezconfig to solve terminal error
 		let config = JSON.parse(data);
 		console.log(config);
 
