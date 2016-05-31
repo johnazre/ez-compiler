@@ -6,8 +6,8 @@ const FS = require('fs'),
 	  exec = require('child_process').exec,
 	  createDir = require('./lib/createDir');
 
+// Declare command
 let command = 'concurrently ';
-
 
 // argv = ['node', 'ez-compiler', task]
 let task = process.argv[2];
@@ -15,7 +15,7 @@ let task = process.argv[2];
 // Create project template
 if(task === 'create'){
 	let projectType = process.argv[3];
-	
+
 	if (projectType === "default") createDir.default();
 	if (projectType === "angular1") createDir.angular1();
 }
@@ -36,20 +36,20 @@ else if (task === 'compile'){
 
 	FS.readFile('ezconfig.json', 'utf8', (error, data) => {
 		error ? console.log(error) : true;
-		
+
 		let config = JSON.parse(data);
-		console.log(config);			
-		
+		console.log(config);
+
 		const reqMods = config.preprocessors; // Required modules to use while creating a compile command
 		const source = config.source; // Where the file is
 		const destination = config.destination; // Where it's going
-		
-		
+
+
 		// Adds npm run command to each preprocessor
 		let commandCreator = reqMods.forEach((val) => {
 			command = command.concat("\"npm run " + val + "\" ")
 		})
-		
+
 		// What executes the command
 		console.log("command: ", command);
 		const child = exec(command, (error, stdout, stderr) => {
@@ -59,7 +59,7 @@ else if (task === 'compile'){
 				console.log("execution error: ", error);
 			}
 		});
-		
+
 	}); // readFile()
 
 }
