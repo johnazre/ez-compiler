@@ -35,20 +35,19 @@ else if (task === "test"){
 
 else if (task === 'compile'){
 	
-	// Allow for node-sass and stylus to work. Will not work without. Won't create own directories.
 	FS.mkdirSync('./dist');
 	FS.mkdirSync('./dist/css');
 
 	FS.readFile('ezconfig.json', 'utf8', (error, data) => {
 		error ? console.log(error) : true;
 
-		// TODO: Do a writeStream for ezconfig to solve terminal error
+
 		let config = JSON.parse(data);
-		console.log(config);
 
 		const reqMods = config.preprocessors; // Required modules to use while creating a compile command
-		const source = config.source; // Where the file is
-		const destination = config.destination; // Where it's going
+
+		// const source = config.source; // Where the file is
+		// const destination = config.destination; // Where it's going
 
 
 		// Adds npm run command to each preprocessor
@@ -60,7 +59,6 @@ else if (task === 'compile'){
 
 
 		// What executes the command
-		console.log("command: ", command);
 		const child = exec(command, (error, stdout, stderr) => {
 			console.log("stdout: ", stdout);
 			console.log("stderr: ", stderr);
