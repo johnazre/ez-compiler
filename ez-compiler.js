@@ -34,9 +34,6 @@ else if (task === "test"){
 }
 
 else if (task === 'compile'){
-	
-	FS.mkdirSync('./dist');
-	FS.mkdirSync('./dist/css');
 
 	FS.readFile('ezconfig.json', 'utf8', (error, data) => {
 		error ? console.log(error) : true;
@@ -54,9 +51,6 @@ else if (task === 'compile'){
 		let commandCreator = reqMods.forEach((val) => {
 			command = command.concat("\"npm run " + val + "\" ")
 		})
-
-		if (options.indexOf('compile') > -1 && options.indexOf('--babel') > -1) command = command.concat("\"npm run babel\"")
-
 
 		// What executes the command
 		const child = exec(command, (error, stdout, stderr) => {
