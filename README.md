@@ -15,7 +15,7 @@ Once the files are compiled, they will automatically be put into the `./dist` fo
 ### !!!!Please don't change the directory names. This tool will not work if you change "src" or "dist"!!!!
 
 #### Flags for "create":
-When you run `ezc create default` OR ` ezc create angular1`, you can add flags to use preprocessors, like SASS, LESS, Pug/Jade, Coffeescript, and more. These change the file extensions in the `src` directory to the corresponding file extensions. These are the current flags that exist as of right now. Please don't hesitate to suggest ones that should be added.
+When you run `ezc create default` OR ` ezc create angular1`, you can add flags to use preprocessors, like SASS, LESS, Pug/Jade, Coffeescript, and more. These change the file extensions in the `src` directory to the corresponding file extensions. These are the current flags that exist as of right now. Please don't hesitate to suggest ones that should be added. NOTE: When flags are added, the file extensions for files related to that preprocessor will be changed. i.e. .css -> .sass
 
 - `--stylus` for Stylus
 - `--sass` for Sass
@@ -40,6 +40,40 @@ When you run `ezc create default` OR ` ezc create angular1`, you can add flags t
                     <li>app.js</li>
                 </ul>
             </li>
+            <li>index.html</li>
+        </ul>
+    </li>
+    <li>src
+       <ul>
+            <li>assets/</li>
+            <li>css/
+                <ul>
+                    <li>style.css</li>
+                </ul>
+            </li>
+            <li>js/
+                <ul>
+                    <li>app.js</li>
+                </ul>
+            </li>
+            <li>index.html</li>
+        </ul>
+    </li>
+</ul>
+#### Angular1
+<ul>
+    <li>dist
+        <ul>
+            <li>assets/</li>
+            <li>css/
+                <ul>
+                    <li>style.css</li>
+                </ul>
+            </li>
+            <li>controllers/</li>
+            <li>services/</li>
+            <li>templates/</li>
+            <li>app.js</li>
             <li>index.html</li>
         </ul>
     </li>

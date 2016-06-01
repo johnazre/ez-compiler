@@ -1,7 +1,7 @@
 {
   "name": "ez-compiler",
   "version": "0.0.1",
-  "description": "An easy-to-use compiler, creator, tester, and linter for commonly used pre-processors.",
+  "description": "An easy-to-use compiler and creator for commonly used pre-processors.",
   "main": "ez-compiler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
