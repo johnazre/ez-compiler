@@ -1,6 +1,6 @@
 {
   "name": "ez-compiler",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "John Armbruster",
   "description": "An easy-to-use compiler and creator for commonly used pre-processors.",
   "repository": {
